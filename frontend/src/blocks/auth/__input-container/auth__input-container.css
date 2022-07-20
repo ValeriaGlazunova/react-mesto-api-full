@@ -1,0 +1,6 @@
+.auth__input-container {
+    display: flex;
+    flex-direction: column;
+    margin: 0 0 216px;
+    width: 358px; 
+}

@@ -1,0 +1,19 @@
+.popup__input {
+    width: 100%;
+    font-family: inherit;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, .2);
+    padding: 0 0 13px;
+    font-size: 14px;
+    line-height: 17px;
+}
+
+.popup__input::placeholder {
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: normal;
+    font-style: normal;
+    line-height: 17px;
+    color: #C4C4C4;
+}
+

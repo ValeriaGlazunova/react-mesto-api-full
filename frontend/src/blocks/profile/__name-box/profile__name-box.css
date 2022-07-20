@@ -1,0 +1,15 @@
+.profile__name-box {
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    max-width: 500px;
+}
+
+@media screen and (max-width: 600px) {
+    .profile__name-box {
+        padding-bottom: 10px;
+        justify-content: center;
+        max-width: 300px;
+    }
+}
+

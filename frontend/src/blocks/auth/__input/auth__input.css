@@ -1,0 +1,26 @@
+.auth__input {
+    width: 100%;
+    font-family: inherit;
+    border: none;
+    border-bottom: 2px solid #CCCCCC;
+    padding: 0 0 13px;
+    font-size: 14px;
+    line-height: 16.94px;
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: 500;
+    margin-bottom: 30px
+}
+
+.auth__input::placeholder {
+    font-weight: 400;
+    color: #CCCCCC; 
+ }
+ 
+ .auth__input:focus {
+     outline: none;
+ }
+ 
+ .auth__input:last-child {
+     margin: 0;
+ }
