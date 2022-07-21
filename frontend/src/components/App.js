@@ -29,15 +29,17 @@ function App() {
   const [isSignedUp, setIsSignedUp] = useState(false);
   const history = useHistory();
 
-  useEffect(() => {
+  const token = localStorage.getItem('token');
+
+  useEffect(() => {  
     api
-      .getProfile()
+      .getProfile(token)
       .then(setCurrentUser)
       .catch(console.log);
     api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
+      .getInitialCards(token)
+      .then((res) => {
+        setCards(res.cards);
       })
       .catch(console.log);
   }, []);
@@ -69,7 +71,7 @@ function App() {
   function handleCardLike(card) {
     const isLiked = card.likes.some((i) => i._id === currentUser._id);
     api
-      .changeLikeCardStatus(card._id, isLiked)
+      .changeLikeCardStatus(card._id, isLiked, token)
       .then((newCard) => {
         setCards((state) =>
           state.map((c) => (c._id === card._id ? newCard : c))
@@ -82,7 +84,7 @@ function App() {
 
   const handleCardDelete = (card) => {
     api
-      .deleteMyCard(card._id)
+      .deleteMyCard(card._id, token)
       .then(() => {
         const newCardList = cards.filter((item) => item._id !== card._id);
         setCards(newCardList);
@@ -94,7 +96,7 @@ function App() {
 
   function handleUpdateUser(data) {
     api
-      .editProfile(data)
+      .editProfile(data, token)
       .then((newData) => {
         setCurrentUser(newData);
         closeAllPopups();
@@ -106,7 +108,7 @@ function App() {
 
   function handleUpdateAvatar(data) {
     api
-      .changeAvatar(data)
+      .changeAvatar(data, token)
       .then((newData) => {
         setCurrentUser(newData);
         closeAllPopups();
@@ -118,7 +120,8 @@ function App() {
 
   function handleAddPlaceSubmit(data) {
     api
-      .postCard(data)
+      .postCard(data, token)
+      .then(console. log(data, 'data'))
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
@@ -189,7 +192,7 @@ function App() {
   }
 
   useEffect(() => {
-    checkToken();
+    checkToken(token);
     if (isLoggedIn) {
       history.push("/");
     }

@@ -4,24 +4,33 @@ class Api {
     this._baseUrl = baseUrl;
   }
 
-  getProfile() {
+  getProfile(token) {
     return fetch(`${this._baseUrl}/users/me`, {
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+      }
     })
       .then(this._checkResponse)
   }
 
-  getInitialCards() {
+  getInitialCards(token) {
     return fetch(`${this._baseUrl}/cards`, {
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+      }
     })
       .then(this._checkResponse)
   }
 
-  editProfile(data) {
+  editProfile(data, token) {
     return fetch(`${this._baseUrl}/users/me`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: data.name,
         about: data.about
@@ -30,10 +39,13 @@ class Api {
       .then(this._checkResponse)
   }
 
-  postCard(data) {
+  postCard(data, token) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name: data.name,
         link: data.link
@@ -42,34 +54,46 @@ class Api {
       .then(this._checkResponse)
   }
 
-  deleteMyCard(id) {
+  deleteMyCard(id, token) {
     return fetch(`${this._baseUrl}/cards/${id}`, {
       method: "DELETE",
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
     })
       .then(this._checkResponse)
   }
 
-  changeLikeCardStatus(id, isLiked) {
+  changeLikeCardStatus(id, isLiked, token) {
     if(!isLiked) {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: "PUT",
-        headers: this._headers,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       })
         .then(this._checkResponse)
     } else {
       return fetch(`${this._baseUrl}/cards/${id}/likes`, {
         method: "DELETE",
-        headers: this._headers,
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
       })
         .then(this._checkResponse)
     }
   }
 
-  changeAvatar(avatar) {
+  changeAvatar(avatar, token) {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: "PATCH",
-      headers: this._headers,
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         avatar,
       }),
@@ -88,7 +112,4 @@ class Api {
 
 export const api = new Api({
   baseUrl: "https://api.glazunovavaleria.nomoredomains.xyz",
-  headers: {
-    "Content-Type": "application/json",
-  },
 });
