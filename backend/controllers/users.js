@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const JWT_SECRET = require('../middlewares/auth');
 const User = require('../models/user');
 const InvalidDataError = require('../errors/InvalidDataError');
 const NotFoundError = require('../errors/NotFoundError');
@@ -111,7 +112,7 @@ module.exports.login = (req, res, next) => {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'secret-key',
+        JWT_SECRET,
         { expiresIn: '7d' },
       );
       res
