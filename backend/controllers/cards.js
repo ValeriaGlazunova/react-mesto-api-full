@@ -8,7 +8,13 @@ module.exports.createCard = (req, res, next) => {
   Card.create({
     name, link, owner: req.user._id,
   })
-    .then((card) => res.status(201).send({ data: card }))
+    .then((card) => res.status(201).send({
+      name: card.name,
+      link: card.link,
+      owner: card.owner,
+      _id: card._id,
+      likes: card.likes,
+    }))
     .catch((error) => {
       if (error.name === 'ValidationError') {
         next(new InvalidDataError(`Запрос содержит некорректные данные ${error.message}`));
@@ -20,7 +26,7 @@ module.exports.createCard = (req, res, next) => {
 
 module.exports.getCards = (req, res, next) => {
   Card.find({})
-    .then((cards) => res.send({ cards }))
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
@@ -32,7 +38,7 @@ module.exports.deleteCard = (req, res, next) => {
         throw new ErrForbidden('Нет прав у текущего пользователя');
       }
       Card.findByIdAndRemove(req.params.cardId)
-        .then(() => res.status(200).send({ data: card }))
+        .then(() => res.status(200).send(card))
         .catch(next);
     })
     .catch((error) => {
@@ -53,7 +59,7 @@ module.exports.likeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка на нейдена');
       }
-      res.status(200).send({ data: card });
+      res.status(200).send(card);
     })
     .catch((error) => {
       if (error.name === 'CastError') {
@@ -73,7 +79,7 @@ module.exports.dislikeCard = (req, res, next) => {
       if (!card) {
         throw new NotFoundError('Карточка на нейдена');
       }
-      res.status(200).send({ data: card });
+      res.status(200).send(card);
     })
     .catch((error) => {
       if (error.name === 'CastError') {

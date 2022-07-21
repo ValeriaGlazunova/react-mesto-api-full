@@ -39,7 +39,8 @@ function App() {
     api
       .getInitialCards(token)
       .then((res) => {
-        setCards(res.cards);
+        console.log(res, 'cards')
+        setCards(res);
       })
       .catch(console.log);
   }, []);
@@ -69,7 +70,7 @@ function App() {
   };
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((i) => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api
       .changeLikeCardStatus(card._id, isLiked, token)
       .then((newCard) => {
@@ -123,6 +124,7 @@ function App() {
       .postCard(data, token)
       .then(console. log(data, 'data'))
       .then((newCard) => {
+        console.log(newCard, 'нов карточка')
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
@@ -183,7 +185,7 @@ function App() {
       auth
         .getToken(token)
         .then((res) => {
-          setEmail(res.data.email);
+          setEmail(res.email);
           setIsLoggedIn(true);
           history.push("/");
         })
@@ -196,7 +198,7 @@ function App() {
     if (isLoggedIn) {
       history.push("/");
     }
-  }, []);
+  }, [isLoggedIn]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
