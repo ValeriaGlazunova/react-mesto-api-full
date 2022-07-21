@@ -1,4 +1,4 @@
-export const baseUrl = "https://auth.nomoreparties.co";
+export const baseUrl = "https://api.glazunovavaleria.nomoredomains.xyz";
 
 function checkResponse(res) {
   return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
