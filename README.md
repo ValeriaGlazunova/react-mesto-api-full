@@ -4,6 +4,8 @@
 # IP адрес сервера
 51.250.25.213
 
+в настоящий момент бекенд проекта остановлен
+
 # ссылка на домен Frontend
 https://glazunovavaleria.mesto.nomoredomains.xyz
 
